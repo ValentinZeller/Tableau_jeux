@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Tableau de jeux</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <!-- <script type="text/javascript" src="../JS/script.js"></script> -->
+  </head>
+  
+  <body>
+    <!-- En-tête identification -->
+    <header><a href="#"></a></header>
+    <h1>Tableau de jeux</h1>
+  
+    <script>
+      //Tableau des jeux
+      table_jeu = [{jeu:"Minecraft",genre:"Sandbox"},{jeu:"Zelda",genre:"Action"},{jeu:"Mario",genre:"Plateforme"},{jeu:"Pokemon",genre:"RPG"},{jeu:"Overwatch",genre:"FPS"},{jeu:"Outer Wilds",genre:"Exploration"}];
+
+      //Entête Genre|Jeu
+      var head = document.createElement("div");
+      head.classList.add("element","head");
+      head.innerHTML = "<div class='genre'>Genre</div><div class='jeu'>Jeu</div>";
+      document.body.appendChild(head);
+      
+      //Affichage du tableau
+      if (Array.isArray(table_jeu)) {
+        for (i = 0; i < table_jeu.length; i++) {
+          var j = document.createElement("div");
+          j.classList.add("element");
+          j.innerHTML = "<div class='genre'>"+table_jeu[i].genre+"</div><div class='jeu'>"+table_jeu[i].jeu+"</div>";
+          document.body.appendChild(j);
+        }
+      }
+
+
+    </script>
+        <form id="affiche">
+          <label for="afficher">Afficher/Masquer</label>
+          <input type="radio" name="btnAfficher" value="afficher" checked/>
+          <input type="radio" name="btnAfficher" value="masquer"/>
+        </form>
+    <script>
+      //Change la visiblité de la colonne genre
+      form = document.getElementById("affiche");
+      elmtGenre = document.getElementsByClassName("genre");
+
+      form.addEventListener("change",function(){
+        for(i=0;i < elmtGenre.length;i++) {
+            if (document.querySelector('input[name="btnAfficher"]:checked').value == "masquer") {
+              elmtGenre[i].style.visibility = "hidden";
+            } else {
+              elmtGenre[i].style.visibility = "visible";
+            }
+        }
+      });
+    </script>
+
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
