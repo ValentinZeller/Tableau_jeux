@@ -1,16 +1,9 @@
-div {
-    width: 35%;
+body {
+    background-color: lightblue;
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.head {
-    font-weight: bold;
-    font-size: 1.5em;
+h3 {
+    color:rgb(35, 99, 163);
 }
-
-.jeu, .genre {
-    border : 1px solid black;
-    display: inline-block;
-}
-
-
-

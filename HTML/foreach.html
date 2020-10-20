@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JS et foreach</title>
+        <meta charset="utf8"/>
+    </head>
+
+    <body>
+        <h3>Utilisation de boucles foreach</h3>
+    </body>
+</html>
+<script type="text/javascript">
+    //Mon tableau
+    var  tabEtudiant = ["Jean-Claude VANDAMME","Anna KARENINE", "Super MAN", "Cat WOMAN"];
+    //Parcourir un tableau avec boucle foreach
+    
+    //Itération sur le tableau par rapport à la clé
+    Object.keys(tabEtudiant).forEach(key => {
+        console.log(key, tabEtudiant[key]);
+    });
+
+    //Afficher les valeurs
+    Object.values(tabEtudiant).forEach(val => {
+        console.log(val);
+    });
+
+    //Afficher selon couple clé valeur défini
+    Object.entries(tabEtudiant).forEach(entry => {                      
+        const [key, value] = entry;
+        console.log(key, value);
+    });
+
+    //Génération de la liste
+    document.write("<select multiple id='selStudent' size=3 onChange=''>");
+    document.write("<option value=-1 selected>Sélectionner un étudiant</option>");
+
+    /*
+    for (i=0 ; i<tabEtudiant.length; i++){
+        document.write("<option value=" + i + ">" + tabEtudiant[i] + "</option>");
+    }
+    */
+
+    Object.keys(tabEtudiant).forEach(key => {
+
+        document.write("<option value=" + key + ">" + tabEtudiant[key] + "</option>");
+    });
+
+    document.write("</select>");
+
+</script>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Sélection de jeux</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <script type="text/javascript" src="../JS/script.js"></script>
+    <style>
+        #result {
+            display: flex;
+            background-color: rgb(110, 164, 218);
+            border-radius: 15px;
+            /*flex-wrap : wrap;*/
+            
+        }
+
+        #selectForm {
+            background-color: DodgerBlue;
+            color:white;
+            font-size: 1.2em;;
+        }
+
+        #total {
+            font-size: 1.5em;
+            color:darkblue;
+            font-weight: bold;
+        }
+
+        #result div {
+            padding-bottom: 1%;
+            display: flex;
+            overflow: hidden;
+            flex-direction: column;
+            justify-content: center;
+        }        
+        img {
+            margin: 7px;
+            flex:1;
+            width: 80%;
+            object-fit: contain;
+        }
+    </style>
+  </head>
+  
+  <body>
+    <h1>Sélection de jeux</h1>
+
+    <form id="formSelect" action="" name="formSelect" method="">
+        <h3>Sélection d'un ou plusieurs jeux :</h3>
+        <select id="selectForm" multiple size="3">
+        </select>
+    </form>
+
+    <h3>Zone d'affichage des jeux :</h3>
+    
+    <script>
+        let jeux = [{prix:15,image:"automne"},{prix:19.75,image:"bioshock"},{prix:20,image:"ete"},{prix:5.5,image:"hiver"},{prix:10,image:"printemps"}];
+
+        let selectForm = document.getElementById("selectForm"); // Select
+        let result = document.getElementById("result"); // Div d'affichage des images
+        
+        //Ajout des valeurs dans le select
+        Object.values(jeux).forEach(element => {
+            let option = document.createElement("option");
+            option.setAttribute("id",element.image);
+            option.setAttribute("value",element.prix);
+            option.textContent = UpperFirst(element.image) + " : "+element.prix+" €";
+            selectForm.appendChild(option);
+            //selectForm.innerHTML += "<option value="+element+">"+element+"</option>"
+        });
+        
+        //Affichage des images en fonction des valeurs sélectionnées dans le select
+        function displayImage() {
+            let total = 0; //total du prix
+
+            //Suppresion des zones si elles sont déjà affichés
+            if (document.getElementById("result")) {
+                document.body.removeChild(document.getElementById("result"));
+            }
+            if (document.getElementById("total")) {
+                document.body.removeChild(document.getElementById("total"));
+            }
+            
+            //Creation de la zone d'affichage des images
+            let result = document.createElement("div");
+            result.setAttribute("id","result");
+            document.body.insertBefore(result,document.getElementsByTagName("footer")[0]);
+
+            //Affichage des images
+            Object.values(selectForm).forEach(element => {
+                if (element.selected) {
+                    let div = document.createElement("div");
+
+                    let img = document.createElement("img");
+                    img.setAttribute("src","../contenu/images/"+element.id+".jpg");
+                    img.setAttribute("alt",element.id);
+                    let span = document.createElement("span");
+                    span.textContent = UpperFirst(element.id)+" : "+element.value+" €";
+                    div.appendChild(img);
+                    div.appendChild(span);
+                    result.appendChild(div);
+                    total +=  parseFloat(element.value);
+                    //result.innerHTML += "<img src=../contenu/images/"+element.value +".jpg />";
+                }
+            })
+            //Creation de la zone d'affichage du total
+            let totalElm = document.createElement("div");
+            totalElm.setAttribute("id","total")
+            //Affichage du total
+            totalElm.textContent = "Total du prix : "+total+" €";
+            document.body.insertBefore(totalElm,result);
+            
+        }
+        
+        //Evénement change sur le select
+        selectForm.addEventListener('change',displayImage);
+    </script>
+
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
+
+<!--
+selection de page
+-->

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Le Juste Prix</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <!-- <link rel="stylesheet" href="../CSS/style.css" type="text/css" /> -->
+    <link rel="stylesheet" href="../CSS/random.css" type="text/css" />
+    <!-- <script type="text/javascript" src="../JS/script.js"></script> -->
+  </head>
+  
+  <body>
+        <h1>Le Juste Prix</h1>
+        <div class="zone">
+            <p>Trouve le nombre à l'aide d'indication.</p>
+            <p>Pour commencer clique sur jouer ou entre une valeur.</p>
+            <button id="play">Jouer</button>
+            <div>
+                <p>Options :</p>
+                <p><label for="difficulty">Facile : </label> <input type="radio" name="difficulty" id="facile" /></p>
+                <p><label for="difficulty">Difficile : </label> <input type="radio" name="difficulty" id="difficile" /></p>
+                
+                <p>Facile : Temps illimité, indication plus précise</p>
+                <p>Difficile : Temps limité, indication moin précise</p>
+            </div>
+        </div>
+        
+        <div class="zone">
+            <p>Trouve la valeur entre 0 et 100 :</p>
+            <input type="number" id="nb" name="nb"/>
+            <button id="btn">Valider</button>
+        </div>
+        
+        <div class="zone">
+            <p>Timer : <span id="time">00 : 00</span></p>
+            <p>Indication : <span id="indication">Aucune</span></p>
+            <p>Nombre de coups : <span id="coup">0</span></p>
+        </div>
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
+
+<script>
+    play = document.getElementById("play");
+    play.addEventListener('click',startTimer);
+
+    nb = document.getElementById("nb");
+    nb.addEventListener('mouseover',startTimer);
+
+    timeZone = document.getElementById("time");
+    coupZone = document.getElementById("coup");
+    indice = document.getElementById("indication");
+
+    btn = document.getElementById("btn");
+    radio = document.getElementsByName("difficulty");
+    console.log(radio);
+
+
+    function time() {
+        //Temps infini incrémenté
+        timeValue += 1;
+        displayTime(timeValue);
+    }
+
+    function countdown() {
+        //Temps limité décrémenté
+        timeLeft -= 1;
+        if (timeLeft <= 0 ) {
+            //Fin du temps
+            foundValue()
+            indice.innerHTML="Perdu";
+        }
+        displayTime(timeLeft);
+    }
+
+    function displayTime(value) {
+        //Affichage du temps en minute : seconde
+        seconde = value%60;
+        minute = Math.floor(value/60);
+
+        seconde = (seconde < 10 ? "0"+seconde : seconde);
+        minute = (minute < 10 ? "0"+minute : minute);
+
+        timeZone.innerHTML = minute + " : " + seconde; 
+    }
+    
+    function startTimer() {
+        //Lancement de la partie
+        
+        //Bouton désactivté
+        play.className = "disabled";
+
+        //Initialisation des timers et nb coup
+        nbCoup = 0;
+        timeValue = 0;
+        timeLeft = 120;
+        coup.innerHTML = nbCoup;
+
+        //Valeur aléatoire
+        random = Math.floor(Math.random()*101));
+        console.log(random);
+        
+        //Mode de jeu
+        if (radio[0].checked) {
+            //Facile
+            timer = setInterval("time()",1000);
+            btn.addEventListener('click',evaluate);
+        } else {
+            //Difficile
+            timer = setInterval("countdown()",1000);
+            btn.addEventListener('click',binaryEvaluate);
+        }
+    
+        play.removeEventListener('click',startTimer);
+        nb.removeEventListener('mouseover',startTimer);
+    }
+
+    function evaluate() {
+        if (nb.value > random) {
+            //Au dessus
+            indice.innerHTML = "Trop gros";
+            nbCoup++
+        } else if (nb.value < random) {
+            //En dessous
+            indice.innerHTML = "Trop petit";
+            nbCoup++
+        } else {
+            //Trouvé
+            nbCoup++;
+            foundValue()
+        }
+    }
+
+    function foundValue() {
+        //Fin de la partie
+        indice.innerHTML = "Trouvé";
+        clearInterval(timer);
+        play.addEventListener('click',startTimer);
+        nb.addEventListener('mouseover',startTimer);
+        coup.innerHTML = nbCoup;
+        play.className = "";
+    }
+
+    function binaryEvaluate() {
+        if (nb.value == random) {
+            nbCoup++;
+            foundValue();
+        } else {
+            indice.innerHTML = "Pas la bonne valeur";
+            nbCoup++
+        }
+    }
+
+</script>
+<!--
+random 0-600
+timer démarre quand l'utilisateur clique sur jouer ou curser dans la zone
+si c'est en dessous ou au dessous
+à la fin : nombre de coup, chrono s'arrete
+-->

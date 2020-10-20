@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Affichage élément</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <!-- <script type="text/javascript" src="../JS/script.js"></script> -->
+  </head>
+  
+  <body onload="init();">
+    <!-- En-tête identification -->
+    <header><a href="#"></a></header>
+    <h1>Affichage élément</h1>
+    <span id="mContenu1">Contenu 1</span>
+    <span id="mContenu2">Contenu 2</span>
+    <p id="Contenu1">Element contenu 1</p>
+    <p id="Contenu2">Element contenu 2</p>
+    
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
+
+<script>
+    function init() {
+        let elements = document.querySelectorAll("p[id]");
+        
+        for(i=0;i<elements.length;i++) {
+            elements[i].style.visibility = "hidden";
+        }
+        let ele = document.querySelectorAll("span");
+        for (i=0;i<ele.length;i++) { // monObjet.addEventListener('mouseover',affiche)
+            ele[i].addEventListener('mouseover',afficher);
+            ele[i].addEventListener('mouseout',masquer);
+        }
+    }
+
+    function afficher(event) {
+        //document.getElementById(this.id.substring(1)).style.visibility = "visible";
+        let elements = document.querySelectorAll("p[id]"); //Récupère les paragraphes avec un id
+
+        Object.values(elements).forEach(val => {
+            
+        });
+        
+    }
+
+    function masquer(event) {
+        document.getElementById(this.id.substring(1)).style.visibility = "hidden";
+    }
+
+</script>  

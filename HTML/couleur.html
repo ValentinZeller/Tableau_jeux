@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Couleur de texte</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <!-- <script type="text/javascript" src="../JS/script.js"></script> -->
+  </head>
+  
+  <body>
+    <!-- En-tête identification -->
+    <header><a href="#"></a></header>
+    <h1>Couleur de texte</h1>
+    <p id="texte">Un message pour chaque bouquet de fleurs!
+      Les fleurs ont leur propre language et permettent de faire parler les coeurs ! Quand les mots sont trop durs à prononcer, les fleurs sont le meilleur moyen d'exprimer ses sentiments!
+      <span id="couleur">Vous offrez (ou envoyez) des fleurs et le fleuriste vous demande si vous souhaitez ajouter une petite carte à votre bouquet ?
+      Comme vous ne savez pas quoi écrire vous avez fait vos recherches sur internet et vous êtes arrivé sur cette page !</span>
+      Vous trouverez ici toute l'inspiration nécessaire. De la poésie, de l'humour, de la passion...vous saurez comment exprimer librement tous vos sentiments!
+      Lorem Elsass ipsum Mauris sit merci vielmols gal Yo dû. ftomi! tristique geht's Coopé de Truchtersheim lotto-owe dui leverwurscht purus Gal ! Pfourtz ! yeuh. réchime Oberschaeffolsheim suspendisse ac libero. hopla varius Kabinetpapier kuglopf Racing. Oberschaeffolsheim tchao bissame Pellentesque hoplageiss baeckeoffe porta mamsell munster so senectus kartoffelsalad lacus rossbolla Hans messti de Bischheim Richard Schirmeck libero, vulputate nüdle dolor mollis Chulien auctor, sit DNA, pellentesque quam, Miss Dahlias nullam Carola sed Wurschtsalad jetz gehts los tellus ullamcorper wurscht s'guelt kougelhopf habitant Morbi knepfle salu chambon picon bière Strasbourg risus, rucksack sit hopla barapli id hop commodo in, sagittis schnaps und Chulia Roberstau flammekueche geïz non leo aliquam turpis, bredele Verdammi blottkopf, gravida dignissim eleifend Christkindelsmärik et amet semper wie ch'ai amet, météor bissame elementum adipiscing sed consectetur non quam. Salu bissame ornare schneck ante Gal. ac hopla rhoncus leo Spätzle eget Heineken id, libero, condimentum elit Salut bisamme  morbi ornare schpeck hopla turpis mänele amet knack tellus placerat vielmols, Huguette gewurztraminer
+    </p>
+
+
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
+
+
+<script>
+  texte = document.getElementById("texte");
+  span = document.getElementById("couleur");
+  span.addEventListener("mouseover", function() {
+    span.style.color = "red";
+    span.style.fontSize = "1.5em";
+  })
+
+  span.addEventListener("mouseout", function() {
+    span.style.color = "black";
+    span.style.fontSize = "1em";
+  })
+</script>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Tableau de jeux</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <!-- <script type="text/javascript" src="../JS/script.js"></script> -->
+    <style>
+      div {
+        width: 35%;
+      }
+
+      .head {
+          font-weight: bold;
+          font-size: 1.5em;
+      }
+
+      .jeu, .genre {
+          border : 1px solid black;
+          display: inline-block;
+          text-align: center;
+      }
+
+      .genre {
+          border-right: hidden;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <!-- En-tête identification -->
+    <header><a href="#"></a></header>
+    <h1>Tableau de jeux</h1>
+  
+    <script>
+      //Tableau des jeux
+      table_jeu = [{jeu:"Minecraft",genre:"Sandbox"},{jeu:"Zelda",genre:"Action"},{jeu:"Mario",genre:"Plateforme"},{jeu:"Pokemon",genre:"RPG"},{jeu:"Overwatch",genre:"FPS"},{jeu:"Outer Wilds",genre:"Exploration"}];
+      
+      console.log(typeof(table_jeu));
+      console.log(Array.isArray(table_jeu));
+      console.table(table_jeu);
+
+      //Entête Genre|Jeu
+      var head = document.createElement("div");
+      head.classList.add("element","head");
+      head.innerHTML = "<div class='genre' style='visibility:visible'>Genre</div><div class='jeu'>Jeu</div>";
+      document.body.appendChild(head);
+      
+      //Affichage du tableau
+      if (Array.isArray(table_jeu)) {
+        for (i = 0; i < table_jeu.length; i++) {
+          var j = document.createElement("div");
+          j.classList.add("element");
+          j.innerHTML = "<div class='genre' style='visibility:visible'>"+table_jeu[i].genre+"</div><div class='jeu'>"+table_jeu[i].jeu+"</div>";
+          document.body.appendChild(j);
+        }
+      }
+
+
+    </script>
+    
+    <label>Afficher/Masquer :</label>
+    <input type="checkbox" name="btnMasquer" id="btnMasquer" />
+    
+
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
+
+<script>
+  //Change la visiblité de la colonne genre
+  checkbox = document.getElementById("btnMasquer");
+  elmtGenre = document.getElementsByClassName("genre");
+
+  checkbox.addEventListener("change",function(){
+    for(i=0;i < elmtGenre.length;i++) {
+      elmtGenre[i].style.visibility = (elmtGenre[i].style.visibility == "visible" ? "hidden" : "visible");
+    }
+  });
+</script>

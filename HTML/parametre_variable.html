@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Notions sur les fonctions</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <!-- <script type="text/javascript" src="../JS/script.js"></script> -->
+  </head>
+  
+  <body>
+    <h1>Notions sur les fonctions</h1>
+    <h3>Nombre de paramètres variables dans une fonctions</h1>
+    <p>Voir la console</p>
+    <script>
+
+    function fun(a,b,...c) {
+        console.log(`${a} ${b}`); // Résultat ?? Algo,Gestion Projets
+        console.log(c);  // // Résultat ?? Game Design, Cuisine, Natation
+        console.log(c[0]); // // Résultat ?? Game Design
+        console.log(c.length); // // Résultat ?? 3
+        console.log(c.indexOf('Game Design')); // // Résultat ?? 0 
+    }
+
+    fun('Algo','Gestion Projets','Game Design','Cuisine','Natation');
+
+    function fun2(...input) {
+        let sum = 0;
+        for(let i of input){
+            sum+=i;
+        }
+        return sum;
+        }
+
+    console.log(fun2(1,2)); // // Résultat ?? 3
+    console.log(fun2(1,2,3)); // // Résultat ?? 6
+    console.log(fun2(1,2,3,4,5)); // // Résultat ?? 15
+
+    //Fonction avec valeurs par défaut
+    //Fonctionnement ? 0
+
+    var multiplier = function(num1 = 2, num2 = 5) 
+        {
+            return (num1 * num2);
+        };
+
+    console.log(multiplier());   // // Résultat ?? 10
+    console.log(multiplier(3,55)); // // Résultat ?? 165
+
+    // Résultat ?? veut dire : essayer de déduire avant de lancer.
+        
+    </script>
+
+    <h3>Retourner plusieurs valeurs</h3>
+    <select id="select"></select>
+
+    <script>
+        select = document.getElementById("select");
+        intArray = [1,2,3,4,5];
+
+        Object.values(intArray).forEach(value => {
+            select.innerHTML += "<option value="+value+">a"+value+"</option>";
+        })
+
+        function selectValue() {
+            result = [];
+            Object.values(select).forEach(element => {
+                console.log(element.value +":"+element.textContent);
+                result = element.textContent;
+            })
+            console.log(result);
+        }
+
+        select.addEventListener('change',selectValue);
+
+    </script>
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
+
+<!--
+selection de page
+-->

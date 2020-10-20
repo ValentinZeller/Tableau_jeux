@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Sélection d'image</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <!-- <script type="text/javascript" src="../JS/script.js"></script> -->
+    <style>
+        #result {
+            display: flex;
+            background-color: rgb(110, 164, 218);
+            border-radius: 15px;
+            /*flex-wrap : wrap;*/
+        }
+
+        #selectForm {
+            background-color: DodgerBlue;
+            color:white;
+            font-size: 1.2em;;
+        }
+
+        img {
+            margin: 7px;
+        }
+    </style>
+  </head>
+  
+  <body>
+    <h1>Sélection d'image</h1>
+
+    <h2>Avec formulaire et foreach :</h2>
+    <form id="formSelect" action="" name="formSelect" method="">
+        <h3>Sélection d'une ou plusieurs images :</h3>
+        <select id="selectForm" multiple size="3">
+        </select>
+    </form>
+
+    <h3>Zone d'affichage des images :</h3>
+    
+    <script>
+        imagesHTML = ["automne","bioshock","ete","hiver","printemps"]; //Tableau des valeurs des images
+
+        selectForm = document.getElementById("selectForm"); // Select
+        result = document.getElementById("result"); // Div d'affichage des images
+        
+        //Ajout des valeurs dans le select
+        Object.values(imagesHTML).forEach(element => {
+            let option = document.createElement("option");
+            option.setAttribute("value",element);
+            option.textContent = element;
+            selectForm.appendChild(option);
+            //selectForm.innerHTML += "<option value="+element+">"+element+"</option>"
+        });
+        
+        //Affichage des images en fonction des valeurs sélectionnées dans le select
+        function displayImage() {
+            if (document.getElementById("result")) {
+                document.body.removeChild(document.getElementById("result"));
+            }
+            let result = document.createElement("div");
+            result.setAttribute("id","result");
+            document.body.insertBefore(result,document.getElementsByTagName("footer")[0]);
+            
+            Object.values(selectForm).forEach(element => {
+                if (element.selected) {
+                    let img = document.createElement("img");
+                    img.setAttribute("src","../contenu/images/"+element.value+".jpg");
+                    result.appendChild(img);
+                    //result.innerHTML += "<img src=../contenu/images/"+element.value +".jpg />";
+                }
+            })
+        }
+        
+        //Evénement change sur le select
+        selectForm.addEventListener('change',displayImage);
+    </script>
+
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
+
+<!--
+selection de page
+-->

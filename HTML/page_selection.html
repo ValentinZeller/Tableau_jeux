@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Sélection de page</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    
+    <!-- <script type="text/javascript" src="../JS/script.js"></script> -->
+    
+  </head>
+  
+  <body>
+    <h1>Sélection de page</h1>
+
+    <h2>Sans formulaire avec for</h2>
+    <select id="select">
+    </select>
+    
+    <script>
+        pagesHTML = ["affichage","couleur","foreach","index","random"];
+        select = document.getElementById("select");
+
+        //Ajout des valeurs dans le select
+        for(i=0;i<pagesHTML.length;i++) {
+            select.innerHTML += "<option value="+pagesHTML[i]+">"+pagesHTML[i]+"</option>"
+        }        
+
+        //Redirection vers la page
+        function displayPage(event) {
+            window.location = this.value+".html";
+        }
+
+        select.addEventListener('change',displayPage);
+
+    </script>
+
+    <h2>Avec formulaire et foreach</h2>
+    <form id="formSelect" action="" name="formSelect" method="">
+        <select id="selectForm">
+        </select>
+    </form>
+
+    <script>
+        form = document.getElementById("formSelect");
+        selectForm = document.getElementById("selectForm");
+        
+        //Ajout des valeurs dans le select
+        Object.values(pagesHTML).forEach(element => {
+            selectForm.innerHTML += "<option value="+element+">"+element+"</option>"
+        });
+        
+        //Changement de l'action du form et redirection
+        function changeAction(event) {
+            form.action = this.value+".html";
+            form.submit();
+        }
+        
+        selectForm.addEventListener('change',changeAction);
+    </script>
+
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
+
+<!--
+selection de page
+-->
