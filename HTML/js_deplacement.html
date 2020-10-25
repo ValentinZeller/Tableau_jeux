@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title></title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <!--<link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <script type="text/javascript" src="../JS/script.js"></script>-->
+    <style>
+        #cadre {
+            border: 10px solid black;
+            width: 90px;
+            height: 90px;
+            background-color:darkorange;
+        }
+
+        #par1 {
+            font-style: italic;
+        }
+
+        .test {
+            color:blue;
+        }
+
+        .container {
+            width:400px;
+            height:400px;
+            background-color: darkslateblue;
+            position: relative;
+        }
+        .anime {
+            width: 50px;
+            height: 50px;
+            background-color: darkslategray;
+            position: absolute;
+        }
+    </style>
+    <script>
+        function init() {
+            //renseigne le title onload : javascript dom
+            document.title = "Javascript DOM";   
+        }
+    </script>
+  </head>
+  
+  <body>
+    <h2>DOM : Document Object Model</h2><h2>Animation en DOM</h2>
+<div id="container2" class="container">
+    <div id="anime2" class="anime"></div>
+</div>  
+<script>
+    anime2 = document.getElementById("anime2");
+    posY = 0;
+    posX = 0;
+    let keysPressed = [];
+    const speed = 10;
+
+    function keyDownHandler(event) {
+        //event.preventDefault();
+        keysPressed[event.code] = true;
+        manage();
+        
+    }
+
+    function keyUpHandler(event) {
+        keysPressed[event.code] = false;
+    }
+
+    function manage() {
+        if (keysPressed["ArrowDown"]) {
+            moveTop(speed);
+        }
+        if (keysPressed["ArrowUp"]) {
+            moveTop(-speed);
+        }
+        if (keysPressed["ArrowLeft"]) {
+            moveLeft(-speed);
+        }
+        if (keysPressed["ArrowRight"]) {
+            moveLeft(speed);
+        }
+    }
+
+    function moveTop(top) {
+        if (!(posY + top > 350 || posY + top < 0)) {
+            posY += top;
+            anime2.style.top = posY+"px";
+        }
+    }
+    function moveLeft(left) {
+        if (!(posX + left > 350 || posX + left < 0)) {
+            posX += left;
+            anime2.style.left = posX+"px";
+        }
+    }
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+</script>
+
+
+<!-- Pied de page -->
+<footer>
+  <h3>Contact :</h3>
+  <ul>
+    <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+    <li>06.18.93.91.06</li>
+  </ul>
+</footer>
+</body>
+</html>

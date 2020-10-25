@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title></title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <!--<link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <script type="text/javascript" src="../JS/script.js"></script>-->
+    <style>
+        #cadre {
+            border: 10px solid black;
+            width: 90px;
+            height: 90px;
+            background-color:darkorange;
+        }
+
+        #par1 {
+            font-style: italic;
+        }
+
+        .test {
+            color:blue;
+        }
+
+        .container {
+            width:400px;
+            height:400px;
+            background-color: darkslateblue;
+            position: relative;
+        }
+        .anime {
+            width: 50px;
+            height: 50px;
+            background-color: darkslategray;
+            position: absolute;
+        }
+    </style>
+    <script>
+        function init() {
+            //renseigne le title onload : javascript dom
+            document.title = "Javascript DOM";   
+        }
+    </script>
+  </head>
+  
+  <body onload="init()">
+    <h2>DOM : Document Object Model</h2>
+    <div id="cadre">
+        <p id="par1" class="test">Paragraphe contenu dans le cadre</p>
+    </div>
+    <!-- Methode 1 : onclick en html-->
+    <button id="btn" onclick="epaissir()">Cliquer pour épaissir la bordure du cadre</button>
+    <button id="btn2">Cliquer pour réduire la bordure du cadre</button>
+    <button id="btn3">Cliquer pour épaissir la bordure du cadre</button>
+    <script>
+        let contour = document.getElementById("cadre");
+        console.log(contour);
+        console.log(typeof(contour)); //objet
+
+        let par2 = document.querySelectorAll("#cadre > p");
+        console.log(par2); //NodeList = noeud
+
+        let par = contour.getElementsByTagName("p");
+        console.log(par); //Collection => NodeList
+        console.log(Array.isArray(par)); //False
+        console.table(par); // Propriété
+        console.log(par.length); //Taille : 1
+        console.log(par[par.length - 1]); //Objet p
+
+        let x = document.querySelectorAll("p.test"); 
+        console.log(x); //NodeList
+
+        let px = document.querySelectorAll("#par1");
+        console.log(px) //Node List
+
+        //console.log(px.innerHTML); //Collection, au niveau du noeud, pas dans le p
+        console.log(px[0].innerHTML);//Au niveau du p
+
+        function epaissir() {
+            contour.style.borderWidth = "40px"; 
+        }
+        
+        //Methode 2 : Modification onclick
+        document.getElementById("btn2").onclick = function() {
+            contour.style.borderWidth = "5px"; 
+        };
+
+        //Methode 3 : addEventListener
+        document.getElementById("btn3").addEventListener('click',epaissir,false);
+
+                /*
+        DOM : arborescence
+        Navigue dans des noeuds
+        document objet
+        head et body sont des child de html
+        head et body sont siblings entre eux
+        title child de head, title a un noeud text
+        methode firstchild
+        élément a : noeud texte et attribut href (noeud)
+        body et head sont dans Collection childNodes de html
+        firstChild, lastChild, previousSibling, nextSibling
+        nodeValue et nodeType
+        parentNode pour remonter
+
+        <title id="demo"> DOM TUTORIAL </title>
+
+        //On y accède avec la propriété innerHTM
+        var myTitle = document.getElementById("demo").innerHTML
+
+        //On y accède avec la propriété nodeValue du 1er enfant du noeud
+        var myTitle  document.getElementById("demo").firstChild.nodeValue;
+
+        //Equivalent de:
+        var myTitlte = document.getElementById("demo").childNodes[0].nodeValue;
+
+        Créer un efnant: document.createElement()
+        Ajouter un enfant : parent.appendChild()
+        Remplacer un enfant : parent;replaceChild()
+        Enlever un enfant : child.parentNode.removeChild() ou remove()
+
+        Faire en DOM : jeux_prix, page_selection, image_selection
+
+        */
+    </script>
+
+    <h2>Animation en DOM</h2>
+    <div id="container" class="container">
+        <div id="anime" class="anime"></div>
+    </div>
+    <button id="btnAnim">Lancer l'animation</button>
+    <button id="btnAnim2">Lancer l'animation 2</button>
+    <button id="btnAnim3">Lancer l'animation 3</button>
+    
+    <script>
+        btnAnim = document.getElementById("btnAnim");
+        btnAnim2 = document.getElementById("btnAnim2");
+        btnAnim3 = document.getElementById("btnAnim3");
+
+
+        anime = document.getElementById("anime");
+        topValue = 0;
+        left = 0;
+
+        function deplacement(x,y) {
+            left += x;
+            topValue += y;
+            if (topValue+y > 350 || left+x > 350 || topValue+y < 0 || left+x < 0) {
+                console.log("a");
+                clearInterval(interval);
+            } else {
+                anime.style.left = left + "px";
+                anime.style.top = topValue + "px";
+            }
+        }
+
+        function myMove(x,y) {
+            //Déplacer l'objet anime
+            interval = setInterval("deplacement(1,1)",2);
+        }
+
+        function myMoveLeft() {
+            interval = setInterval("deplacement(-1,0)",2);
+        }
+
+        function moveDia() {
+            interval = setInterval("deplacement(1,-1)",2);
+        }
+
+        btnAnim.addEventListener('click',myMove,false);
+        btnAnim2.addEventListener('click',myMoveLeft,false);
+        btnAnim3.addEventListener('click',moveDia,false);
+ 
+    </script>
+
+    <h2>Animation en DOM</h2>
+    <div id="container2" class="container">
+        <div id="anime2" class="anime"></div>
+    </div>  
+    <script>
+        anime2 = document.getElementById("anime2");
+        posY = 0;
+        posX = 0;
+        let keysPressed = [];
+        const speed = 10;
+
+        function keyDownHandler(event) {
+            event.preventDefault();
+            keysPressed[event.code] = true;
+            manage();
+            
+        }
+
+        function keyUpHandler(event) {
+            keysPressed[event.code] = false;
+        }
+
+        function manage() {
+            if (keysPressed["ArrowDown"]) {
+                moveTop(speed);
+            }
+            if (keysPressed["ArrowUp"]) {
+                moveTop(-speed);
+            }
+            if (keysPressed["ArrowLeft"]) {
+                moveLeft(-speed);
+            }
+            if (keysPressed["ArrowRight"]) {
+                moveLeft(speed);
+            }
+        }
+
+        function moveTop(top) {
+            if (!(posY + top > 350 || posY + top < 0)) {
+                posY += top;
+                anime2.style.top = posY+"px";
+            }
+        }
+        function moveLeft(left) {
+            if (!(posX + left > 350 || posX + left < 0)) {
+                posX += left;
+                anime2.style.left = posX+"px";
+            }
+        }
+        document.addEventListener("keydown", keyDownHandler, false);
+        document.addEventListener("keyup", keyUpHandler, false);
+    </script>
+    
+    
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>

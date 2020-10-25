@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head name="head">
+    <title>Palindrome</title>
+    <meta charset="utf-8">
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <script type="text/javascript" src="../JS/script.js"></script>
+    <style>
+      .palindrome {
+        background-color: green;
+      }
+
+      .not-palindrome {
+        background-color: red;
+      }
+    </style>
+  </head>
+  
+  <body onload="init()">
+    <h2>Palindrome</h2>
+    <h4>Saisir un mot pour vérifier si c'est un palindrome</h4>
+      <!-- <input type="text" id="pal" name="pal" placeholder="Saisir mot" minlength="4" maxlength="30" /> -->
+
+    <script>
+      function init() {
+        //Création et insertion du bouton dans le DOM
+        input = document.createElement('input');
+        input.setAttribute('type','text');
+        input.setAttribute('id','pal');
+        input.setAttribute('name','pal');
+        input.setAttribute('placeholder','Saisir mot');
+        input.setAttribute('minlength','4');
+        input.setAttribute('maxlength','30');
+        document.body.appendChild(input);
+        input.addEventListener('blur',palindrome);
+        //input et change ne se déclenche pas si c'est le js
+      }
+        
+      function palindrome(event) {
+        chaine = this.value.toUpperCase();
+        if (chaine && chaine.length > 3 && chaine.length < 30) {
+          var i = 0;
+          var valide = true;
+          while ((i<=Math.trunc(chaine.length / 2))&&(valide)) {
+            //Tant qu'on n'a pas parcouru la moitié de la chaine ou que la chaine n'est pas un palindrome alors on vérifie si la chaine est un palindrome
+            valide = (chaine[i] == chaine[chaine.length-i-1]);
+            i++;
+          }
+
+          let res = chaine.split("").reverse().join("");
+          
+          if(valide) {
+            strResult = this.value +" est un palindrome";
+            this.setAttribute('class','palindrome');
+          } else {
+            strResult = this.value +" n'est pas un palindrome";
+            this.setAttribute('class','not-palindrome');
+          }
+        //alert(strResult);
+        }
+      }
+    </script>
+
+    <!-- Pied de page 
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>-->
+  </body>
+</html>

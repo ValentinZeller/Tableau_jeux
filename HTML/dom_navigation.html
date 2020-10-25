@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head name="head">
+    <title>DOM Navigation</title>
+    <meta charset="utf-8">
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <!--<link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <script type="text/javascript" src="../JS/script.js"></script>-->
+    <style>
+        .toto {
+            background-color: darkorange;
+        }
+
+        .tutu {
+            border: 5px solid red;
+        }
+    </style>
+  </head>
+  
+  <body>
+    <h2>DOM Navigation</h2>
+
+    <button id="fNode" onclick='fNode()'>Afficher le contenu du DOM</button>
+
+    <script>
+
+        function fNode() {
+            let html = document.firstChild.name;
+            console.log(html);//html
+            console.log(typeof(html));
+            console.log(typeof(document.firstChild));
+
+            html = document.firstChild.nodeName;
+            console.log(html);//html
+
+            html = document.lastChild.nodeName;
+            console.log(html);//HTML
+
+            html = document.childNodes;
+            console.log(html);//nodeList
+
+            //L'entête est le 1er enfant de HTML
+            var entete = document.getElementsByTagName('html')[0].firstChild.nodeName;
+            console.log(entete);
+
+            var titre = document.getElementsByTagName('html')[0].firstChild.childNodes[0].nodeType;
+            if (titre == 3) {
+                titre = "TEXT_NODE";
+            }
+            console.log(titre);
+                
+            //nodeName of a text node is always #text
+            var titre = document.getElementsByTagName('html')[0].firstChild.childNodes[0].nodeName;
+            console.log(titre);
+
+            var objEntete = document.getElementsByTagName('html')[0].firstChild; //HEAD
+            console.log(objEntete);
+
+            var objTitle = document.getElementsByTagName('head')[0].firstChild.nextSibling; //Titre
+            console.log(objTitle);
+
+            var objTitle = objEntete.firstChild.nextSibling //Titre
+            console.log(objTitle);
+
+            var titreValue = objTitle.innerHTML; //Texte contenu dans le titre
+            console.log(titreValue);
+
+            var titreValue = objTitle.childNodes[0].nodeValue; // Texte contenu dans le titre
+            console.log('texte du title : ',titreValue);
+
+            var titreValue = objTitle.firstChild.nodeValue; //Texte contenu dans le titre
+            console.log('texte du title : ', titreValue);
+        }
+
+    </script>
+
+    <h3>Créer des éléments dans le DOM</h3>
+    <div id="div1">
+        <p id="p1">Premier paragraphe</p>
+        <p id="p2">Second paragraphe</p>
+        <!-- Poser des éléments dans le document : entrer des éléments dans le DOM -->
+    </div>
+    <script>
+        //Créer l'élement paragraphe
+        var para = document.createElement('p');
+        //Créer le noeud texte
+        var node = document.createTextNode('Nouveau texte pour nouveau paragraphe');
+
+        //Ajout du texte à son paragraphhe
+        para.appendChild(node);
+
+        div = document.getElementById("div1");
+        div.appendChild(para);
+
+        //Créer l'élement paragraphe
+        var para = document.createElement('p');
+        //Créer le noeud texte
+        var node = document.createTextNode('Un nouveau texte pour un quatrième paragraphe positionner avant le premier');
+        //Ajout du texte à son paragraphhe
+        para.appendChild(node);
+
+        //Insérer un paragraphe avant le premier
+        div.insertBefore(para,div.firstChild);
+
+
+        //Fonction remplacer : remplacer un paragraphe
+        function remplacer() {
+            var para = document.createElement('p');
+            //Créer le noeud texte
+            var node = document.createTextNode('Texte remplacé');
+            //Ajout du texte à son paragraphhe
+            para.appendChild(node);
+
+            var parent = document.getElementById("div1");
+
+            parent.replaceChild(para,parent.firstChild);
+        }
+
+        var btn = document.createElement('button');
+        btn.setAttribute('id','btn');
+        var node = document.createTextNode('Cliquer');
+        btn.appendChild(node);
+
+        div.appendChild(btn);
+        
+
+        var bouton = document.getElementById('btn');
+        bouton.addEventListener('click',remplacer);
+
+        par1 = document.getElementById("p1");
+        par1.setAttribute("name","premier");
+
+        par2 = document.getElementById("p2");
+        par2.setAttribute("class","toto");
+
+       // par2.removeAttribute("class");
+        //par2.setAttribute("class","tutu");
+
+        //par2.setAttribute("class","toto tutu");
+
+        par2.classList.add('tutu');
+
+
+    </script>
+
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>

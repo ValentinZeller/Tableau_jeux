@@ -1,0 +1,74 @@
+body {
+    background-color: #55aadd;
+    font-family: fantasy;
+  }
+  
+  h1,h2 {
+    color : #06477d;
+    text-align: center;
+    font-family: cursive;
+  }
+  
+  #form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+  
+  }
+  
+  .form-group {
+    background-color : white;
+    padding: 1%;
+    border-radius: 5%;
+  }
+  
+  .form-element {
+      margin-top : 4%;
+  }
+  
+  .result-group {
+    /*display: flex;*/
+   width: 450px;
+    background-color: white;
+  /*  flex-direction: column; */
+    padding-left : 1%;
+    border-radius: 2%;
+  }
+  
+  .result-element {
+    margin-top: 1%;
+  }
+  
+  label {
+    color: #5566dd;
+  }
+  
+  .form-button {
+    background-color: #f68a2b;
+    color : white;
+    padding : 2%;
+    border : none;
+    border-radius : 10%;
+  }
+  
+  input[type=button] {
+    overflow: hidden;
+    background-color : #22dd77;
+  }
+  
+  input[type=reset]:hover {
+    background-color : #fda75c;
+  }
+  
+  input[type=button]:hover {
+    background-color: #33ee88;
+  }
+  
+  .result-label {
+    
+    font-weight: bold;
+    width: 160px;
+    display: inline-block;
+  }
+  

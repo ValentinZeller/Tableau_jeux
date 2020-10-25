@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <!-- En-tête spécification -->
+  <head>
+    <!-- Gestion des caractères -->
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Boîte</title>
+    <!-- Icone onglet  -->
+    <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
+    <!-- Appel du css depuis un fichier externe-->
+    <link rel="stylesheet" href="" type="text/css" />
+    <style>
+        .black {
+            background-color: black;
+        }
+
+        /* Méthode avec tableau */
+        table {
+            border: 1px solid black;
+            border-collapse: collapse; /* Enlève les espaces */
+        }
+
+        td { /* taille d'une celle */
+            width: 10px;
+            height: 10px;
+        }
+    </style>
+  </head>
+  <body onload="">
+    <!-- En-tête identification -->
+    <header><a href="#"></a></header>
+    <h2>Damier en JS</h2>
+    <span>Taille du damier : </span>
+    <input type="number" name="tailledamier" id="tailledamier"></input>
+    <button id="btnDamier">Créer un damier</button>
+    <div id="damier"></div>
+    <script type="text/javascript">
+        btn = document.getElementById("btnDamier");
+        btn.addEventListener("click",damier);
+
+        function damier() {
+            taille = document.getElementById("tailledamier").value;
+            tableExist = document.getElementById("table");
+            damier = document.getElementById("damier")
+            if (tableExist) {
+                damier.removeChild(tableExist);
+            }
+
+            table = document.createElement("table");
+            table.setAttribute("id","table");
+            for (i=0;i< taille;i++) { /* Création des lignes */
+              let tr = document.createElement("tr");
+              for (j=0;j< taille;j++) { /* Création des cellules */
+                  let td = document.createElement("td");
+                  if ((i+j) %2 != 0) { /* Colonne paire */
+                      td.setAttribute("class","black");
+                  }
+                  tr.appendChild(td);
+              }
+              table.appendChild(tr);   
+            }
+            damier.appendChild(table);
+        }
+  
+      </script>
+    <!-- Pied de page -->
+    <footer>
+      <h3>Contact :</h3>
+      <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+      </ul>
+    </footer>
+  </body>
+</html>
