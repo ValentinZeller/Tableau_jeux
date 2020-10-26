@@ -19,28 +19,6 @@
     <header></header>
     <h1>Formulaire</h1>
       <script>
-          /*
-          Afficher la date
-          checkbox généré par un tableau
-          option généré par un tableau
-
-          curseur niveau en langue
-          email1 et email2 : email de secours
-          bouton radio pour : email2 = email1
-          champs telephone
-
-          bouton submit,reset
-
-          tous les champs ont un label et un placeholder (si possible)
-
-          ajouter le fieldset civilité : genre,nom,prenom,ddn sera entouré d'un fieldset
-
-          partie vos hobbies : liste de jeux : afficher image/prix
-
-          submit : appel la fonction de validation => aller sur la page traitement formulaire (résumé) (js_traitement_formulaire)
-          Créer le formulaire avec tableau et type
-          */
-
           function createLabel(name,parent) {
             label = document.createElement('label');
             label.setAttribute('for',name);
@@ -81,8 +59,8 @@
                       {name:"ddn",type:"date",civilite:true},
                       {name:"email",type:"email"},
                       {name:"email2",type:"email"},
+                      {name:"copier_email",type:"radio",value:["oui","non"]},
                       {name:"telephone",type:'tel'},
-                      {name:"copier l'email de secours",type:"radio",value:["oui","non"]},
                       {name:'niveau en anglais',type:"range",min:0,max:100},
                       {name:"genre",type:"radio",civilite:true,value:["homme","femme","autre"]},
                       {name:"programmation",type:"checkbox",value:["js","php","c++","java","pascal"]},
@@ -93,20 +71,24 @@
                       ];
           
           function generateForm(array) {
+            //form
             form = document.createElement('form');
             form.setAttribute('action','js_traitement_formulaire.html');
             form.setAttribute('method','get');
             form.setAttribute('id','form');
 
+            //Div form group pour CSS
             formGroup = document.createElement('div');
             formGroup.setAttribute('class','form-group');
 
             form.appendChild(formGroup);
 
+            //Fieldset
             civilite = document.createElement('fieldset');
             civilite.setAttribute('id','civilite');
             civilite.setAttribute('name','civilite');
 
+            //Legend du fieldset
             legend = document.createElement('legend');
             legend.innerHTML = 'Civilité :';
             civilite.appendChild(legend);
@@ -176,6 +158,28 @@
               document.body.appendChild(form);
             });
           }
+
+                    /*
+          Afficher la date
+          checkbox généré par un tableau
+          option généré par un tableau
+
+          curseur niveau en langue
+          email1 et email2 : email de secours
+          bouton radio pour : email2 = email1
+          champs telephone
+
+          bouton submit,reset
+
+          tous les champs ont un label et un placeholder (si possible)
+
+          ajouter le fieldset civilité : genre,nom,prenom,ddn sera entouré d'un fieldset
+
+          partie vos hobbies : liste de jeux : afficher image/prix
+
+          submit : appel la fonction de validation => aller sur la page traitement formulaire (résumé) (js_traitement_formulaire)
+          Créer le formulaire avec tableau et type
+          */
       </script>
     </form>
     <!-- Pied de page 

@@ -5,8 +5,19 @@ function verifSaisie() {
     nom = document.getElementById("nom").value;
     prenom = document.getElementById("prenom").value;
     email= document.getElementById("email").value;
-  
-  
+    email2 = document.getElementById("email2").value;
+    
+    if (document.querySelector('input[name="copier_email"]:checked')) {
+      copier = document.querySelector('input[name="copier_email"]:checked').value;
+      if (copier == "oui") {
+        email2 = email;
+        document.getElementById("email2").value = email2;
+      }
+    } else {
+      verif = false;
+      document.getElementById('copier_email').focus();
+    }
+
     diplome= document.getElementById("diplome").value;
     ddn=document.getElementById("ddn").value;
     ddn = ddn.split("-");

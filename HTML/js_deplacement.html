@@ -6,12 +6,12 @@
     <!-- Gestion des caractères -->
     <meta charset="utf-8">
     <!-- Titre de la page -->
-    <title></title>
+    <title>Déplacement</title>
     <!-- Icone onglet  -->
     <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
     <!-- Appel du css depuis un fichier externe-->
-    <!--<link rel="stylesheet" href="../CSS/style.css" type="text/css" />
-    <script type="text/javascript" src="../JS/script.js"></script>-->
+    <link rel="stylesheet" href="../CSS/style.css" type="text/css" />
+    <script type="text/javascript" src="../JS/script.js"></script>
     <style>
         #cadre {
             border: 10px solid black;
@@ -37,80 +37,115 @@
         .anime {
             width: 50px;
             height: 50px;
-            background-color: darkslategray;
+            background-color: lightcoral;
             position: absolute;
         }
-    </style>
-    <script>
-        function init() {
-            //renseigne le title onload : javascript dom
-            document.title = "Javascript DOM";   
+
+        #anime2 {
+            top: 60px;
+            background-color: lightgreen;
         }
-    </script>
+    </style>
   </head>
   
   <body>
-    <h2>DOM : Document Object Model</h2><h2>Animation en DOM</h2>
-<div id="container2" class="container">
-    <div id="anime2" class="anime"></div>
-</div>  
-<script>
-    anime2 = document.getElementById("anime2");
-    posY = 0;
-    posX = 0;
-    let keysPressed = [];
-    const speed = 10;
+    <h2>DOM : Document Object Model</h2>
+    <h2>Déplacement en DOM</h2>
+    <div id="container" class="container">
+        <div id="anime" class="anime"></div>
+        <div id="anime2" class="anime"></div>
+    </div>  
+    <script>
+        anime = document.getElementById("anime"); //Block déplaçable
+        anime2 = document.getElementById("anime2"); //Block déplaçable
+        container = document.getElementById("container"); //Zone où se trouve les blocks
+        let keysPressed = []; //Gestion des inputs
+        const speed = 10;
+        const size = 50;
 
-    function keyDownHandler(event) {
-        //event.preventDefault();
-        keysPressed[event.code] = true;
-        manage();
-        
-    }
+        animePos = {x:0,y:0,w:size,h:size}; //Collision box
+        anime2Pos = {x:0,y:60,w:size,h:size}; //Collision box
+        zone = {w:container.offsetWidth,h:container.offsetHeight} //Taille max de la zone
 
-    function keyUpHandler(event) {
-        keysPressed[event.code] = false;
-    }
+        function keyDownHandler(event) {
+            //Pression sur une touche
+            //event.preventDefault();
+            keysPressed[event.code] = true;
+            manage();
+            
+        }
 
-    function manage() {
-        if (keysPressed["ArrowDown"]) {
-            moveTop(speed);
+        function keyUpHandler(event) {
+            //Touche relachée
+            keysPressed[event.code] = false;
         }
-        if (keysPressed["ArrowUp"]) {
-            moveTop(-speed);
-        }
-        if (keysPressed["ArrowLeft"]) {
-            moveLeft(-speed);
-        }
-        if (keysPressed["ArrowRight"]) {
-            moveLeft(speed);
-        }
-    }
 
-    function moveTop(top) {
-        if (!(posY + top > 350 || posY + top < 0)) {
-            posY += top;
-            anime2.style.top = posY+"px";
+        function manage() {
+            //Gestion des touches pour déplacer les blocks
+            if (keysPressed["ArrowDown"]) {
+                moveTop(speed,anime,animePos,anime2Pos);
+            }
+            if (keysPressed["ArrowUp"]) {
+                moveTop(-speed,anime,animePos,anime2Pos);
+            }
+            if (keysPressed["ArrowLeft"]) {
+                moveLeft(-speed,anime,animePos,anime2Pos);
+            }
+            if (keysPressed["ArrowRight"]) {
+                moveLeft(speed,anime,animePos,anime2Pos);
+            }
+
+            if (keysPressed["KeyS"]) {
+                moveTop(speed,anime2,anime2Pos,animePos);
+            }
+            if (keysPressed["KeyW"]) {
+                moveTop(-speed,anime2,anime2Pos,animePos);
+            }
+            if (keysPressed["KeyA"]) {
+                moveLeft(-speed,anime2,anime2Pos,animePos);
+            }
+            if (keysPressed["KeyD"]) {
+                moveLeft(speed,anime2,anime2Pos,animePos);
+            }
+            
         }
-    }
-    function moveLeft(left) {
-        if (!(posX + left > 350 || posX + left < 0)) {
-            posX += left;
-            anime2.style.left = posX+"px";
+
+        function collision(blockPos,blockCol,top,left) {
+            //Gestion des collisions entre deux blocks
+            result = true;
+            if ((blockPos.x + left < blockCol.x + blockCol.w )&&(blockPos.x + blockPos.w + left > blockCol.x)&&(blockPos.y + top < blockCol.y + blockCol.h)&&(blockPos.y + blockCol.h + top > blockCol.y)) {
+                result = false;
+            }
+            
+            return result;
         }
-    }
-    document.addEventListener("keydown", keyDownHandler, false);
-    document.addEventListener("keyup", keyUpHandler, false);
-</script>
+
+        function moveTop(top,block,blockPos,blockCol) {
+            //Mouvement haut-bas
+            if (!(blockPos.y + blockPos.h + top > zone.h || blockPos.y + top < 0)&&collision(blockPos,blockCol,top,0)) {
+                blockPos.y += top;
+                block.style.top = blockPos.y+"px";
+            }
+        }
+        function moveLeft(left,block,blockPos,blockCol) {
+            //Mouvement gauche-droite
+            if (!(blockPos.x + blockPos.w + left > zone.w || blockPos.x + left < 0)&&collision(blockPos,blockCol,0,left)) {
+                blockPos.x += left;
+                block.style.left = blockPos.x+"px";
+            }
+        }
+        document.addEventListener("keydown", keyDownHandler, false);
+        document.addEventListener("keyup", keyUpHandler, false);
+    </script>
 
 
-<!-- Pied de page -->
-<footer>
-  <h3>Contact :</h3>
-  <ul>
-    <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
-    <li>06.18.93.91.06</li>
-  </ul>
-</footer>
+    <!-- Pied de page -->
+    <footer>
+    <h3>Contact :</h3>
+    <ul>
+        <li><a href="mailto:v.zeller@ludus-academie.com" title="Mail">Me contacter par mail</a></li>
+        <li>06.18.93.91.06</li>
+    </ul>
+    </footer>
 </body>
 </html>

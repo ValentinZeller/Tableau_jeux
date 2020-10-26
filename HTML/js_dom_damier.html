@@ -5,25 +5,30 @@
     <!-- Gestion des caractères -->
     <meta charset="utf-8">
     <!-- Titre de la page -->
-    <title>Boîte</title>
+    <title>Damier</title>
     <!-- Icone onglet  -->
     <link rel="shortcut icon" type="image/x-icon" href="../contenu/images/zenyatta.png"/>
     <!-- Appel du css depuis un fichier externe-->
-    <link rel="stylesheet" href="" type="text/css" />
+    <link rel="stylesheet" href="../CSS/formulaire_style.css" type="text/css" />
     <style>
-        .black {
-            background-color: black;
-        }
-
         /* Méthode avec tableau */
         table {
             border: 1px solid black;
             border-collapse: collapse; /* Enlève les espaces */
         }
 
+        label {
+          color : #3342ad;
+        }
+
         td { /* taille d'une celle */
-            width: 10px;
-            height: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        input {
+          display : block;
+          margin-bottom: 4px;
         }
     </style>
   </head>
@@ -31,8 +36,14 @@
     <!-- En-tête identification -->
     <header><a href="#"></a></header>
     <h2>Damier en JS</h2>
-    <span>Taille du damier : </span>
-    <input type="number" name="tailledamier" id="tailledamier"></input>
+    <label for="width">Largeur :</label>
+    <input type="number" name="width" id="width"></input>
+    <label for="width">Hauteur :</label>
+    <input type="number" name="height" id="height"></input>
+    <label for="width">Couleur 1 :</label>
+    <input type="color" name="color1" id="color1" value="#ffffff"></input>
+    <label for="width">Couleur 2 :</label>
+    <input type="color" name="color2" id="color2" value="#000000"></input>
     <button id="btnDamier">Créer un damier</button>
     <div id="damier"></div>
     <script type="text/javascript">
@@ -40,7 +51,12 @@
         btn.addEventListener("click",damier);
 
         function damier() {
-            taille = document.getElementById("tailledamier").value;
+            width = document.getElementById("width").value;
+            height = document.getElementById("height").value;
+
+            color1 = document.getElementById("color1").value;
+            color2 = document.getElementById("color2").value;
+
             tableExist = document.getElementById("table");
             damier = document.getElementById("damier")
             if (tableExist) {
@@ -49,12 +65,14 @@
 
             table = document.createElement("table");
             table.setAttribute("id","table");
-            for (i=0;i< taille;i++) { /* Création des lignes */
+            for (i=0;i< height;i++) { /* Création des lignes */
               let tr = document.createElement("tr");
-              for (j=0;j< taille;j++) { /* Création des cellules */
+              for (j=0;j< width;j++) { /* Création des cellules */
                   let td = document.createElement("td");
                   if ((i+j) %2 != 0) { /* Colonne paire */
-                      td.setAttribute("class","black");
+                    td.style.backgroundColor = color2;
+                  } else {
+                    td.style.backgroundColor = color1;
                   }
                   tr.appendChild(td);
               }
