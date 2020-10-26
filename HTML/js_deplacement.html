@@ -51,6 +51,7 @@
   <body>
     <h2>DOM : Document Object Model</h2>
     <h2>Déplacement en DOM</h2>
+    <p>Utiliser les flèches et ZQSD pour déplacer les blocks.</p>
     <div id="container" class="container">
         <div id="anime" class="anime"></div>
         <div id="anime2" class="anime"></div>
@@ -60,19 +61,23 @@
         anime2 = document.getElementById("anime2"); //Block déplaçable
         container = document.getElementById("container"); //Zone où se trouve les blocks
         let keysPressed = []; //Gestion des inputs
-        const speed = 10;
+        const speed = 1;
         const size = 50;
 
         animePos = {x:0,y:0,w:size,h:size}; //Collision box
         anime2Pos = {x:0,y:60,w:size,h:size}; //Collision box
         zone = {w:container.offsetWidth,h:container.offsetHeight} //Taille max de la zone
+        var inter;
 
         function keyDownHandler(event) {
             //Pression sur une touche
             //event.preventDefault();
             keysPressed[event.code] = true;
-            manage();
-            
+            if (inter) {
+                console.log("Pas créé");
+            } else {
+                inter = setInterval(manage,1);
+            }
         }
 
         function keyUpHandler(event) {
@@ -107,16 +112,21 @@
             if (keysPressed["KeyD"]) {
                 moveLeft(speed,anime2,anime2Pos,animePos);
             }
-            
+            renderBlock();
         }
+
+        
 
         function collision(blockPos,blockCol,top,left) {
             //Gestion des collisions entre deux blocks
+            //BlockPos : le block déplacé
+            //BlockCol : block qui peut être en collision
+            //top : déplacement haut-bas
+            //left : déplacement gauche-droite
             result = true;
             if ((blockPos.x + left < blockCol.x + blockCol.w )&&(blockPos.x + blockPos.w + left > blockCol.x)&&(blockPos.y + top < blockCol.y + blockCol.h)&&(blockPos.y + blockCol.h + top > blockCol.y)) {
                 result = false;
             }
-            
             return result;
         }
 
@@ -124,18 +134,26 @@
             //Mouvement haut-bas
             if (!(blockPos.y + blockPos.h + top > zone.h || blockPos.y + top < 0)&&collision(blockPos,blockCol,top,0)) {
                 blockPos.y += top;
-                block.style.top = blockPos.y+"px";
+                //block.style.top = blockPos.y+"px";
             }
         }
         function moveLeft(left,block,blockPos,blockCol) {
             //Mouvement gauche-droite
             if (!(blockPos.x + blockPos.w + left > zone.w || blockPos.x + left < 0)&&collision(blockPos,blockCol,0,left)) {
                 blockPos.x += left;
-                block.style.left = blockPos.x+"px";
+                //block.style.left = blockPos.x+"px";
             }
         }
         document.addEventListener("keydown", keyDownHandler, false);
         document.addEventListener("keyup", keyUpHandler, false);
+
+        function renderBlock() {
+            //Affichage des blocks
+            anime.style.top = animePos.y+"px";
+            anime.style.left = animePos.x+"px";
+            anime2.style.top = anime2Pos.y+"px";
+            anime2.style.left = anime2Pos.x+"px";
+        }
     </script>
 
 

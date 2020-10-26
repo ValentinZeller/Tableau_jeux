@@ -19,7 +19,16 @@
     <h2>Web Storage</h2>
 
     <script type="text/javascript">
+        //Stockage d'une paire clé/valeur
+        sessionStorage.setItem("couleur","vert");
 
+        p = document.createElement("p");
+        node = document.createTextNode(sessionStorage.getItem("couleur"));
+        p.appendChild(node);
+        document.body.appendChild(p);
+
+        //Suppression de la paire
+        sessionStorage.removeItem("couleur");
     </script>
     <!-- Pied de page -->
     <footer>
