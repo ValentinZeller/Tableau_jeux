@@ -33,8 +33,11 @@
             input.setAttribute('id',element.name);
             input.setAttribute('name',element.name);
             input.setAttribute('type',element.type);
+            input.setAttribute('required','true');
             if (element.type == 'tel') {
-              input.setAttribute('pattern','[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}');
+              
+              //input.setAttribute('pattern',);
+              input.setAttribute('placeholder',"(+33)00-00-00");
             } else if (element.type == 'text' || element.type == 'email') {
               input.setAttribute('placeholder',element.name);
             } else if (element.type == 'range') {

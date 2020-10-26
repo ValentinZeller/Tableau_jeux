@@ -1,3 +1,13 @@
+function phonecheck(numb){
+  var regx = /^[0-9]+$/;
+    if(numb.value.match(regx))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 function verifSaisie() {
     var form = document.getElementById('form');
     var verif = true;
@@ -22,6 +32,12 @@ function verifSaisie() {
     ddn=document.getElementById("ddn").value;
     ddn = ddn.split("-");
   
+    tel = document.getElementById('telephone').value;
+
+    if (tel == '' || !phonecheck(tel)) {
+      verif = false;
+      document.getElementById('telephone').focus();
+    }
 
     if (diplome == '') {
       verif = false;
@@ -78,19 +94,23 @@ function verifSaisie() {
     Object.values(values).forEach( value => {
       value = value.split("=");
 
-      div = document.createElement("div");
-      div.setAttribute("class","result-element");
-      para = document.createElement("p");
+      if (value[0] != "copier_email") {
+        if (value[0] == "email2") {
+          value[0] = "Email de secours";
+        }
+        div = document.createElement("div");
+        div.setAttribute("class","result-element");
+        para = document.createElement("p");
 
-      para.innerHTML = decodeURIComponent(UpperFirst(value[0].replace(/\+/g," "))) +" : ";
-      if (value[0] != "hobbies") {
-        para.innerHTML += decodeURIComponent(value[1]);
-      } else {
-        let img = document.createElement("img");
-        img.setAttribute("src","../contenu/images/"+decodeURIComponent(value[1]).split(':')[0]);
-        para.appendChild(img);
+        para.innerHTML = decodeURIComponent(UpperFirst(value[0].replace(/\+/g," "))) +" : ";
+        if (value[0] != "hobbies") {
+          para.innerHTML += decodeURIComponent(value[1]);
+        } else {
+          let img = document.createElement("img");
+          img.setAttribute("src","../contenu/images/"+decodeURIComponent(value[1]).split(':')[0]);
+          para.appendChild(img);
+        }
       }
-      
 
       div.appendChild(para);
       group.appendChild(div);

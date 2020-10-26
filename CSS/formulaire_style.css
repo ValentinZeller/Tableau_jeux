@@ -29,11 +29,12 @@ body {
   
   .result-group {
     /*display: flex;*/
-   width: 450px;
+    width: 450px;
     background-color: white;
-  /*  flex-direction: column; */
-    padding-left : 1%;
+    text-align: center;
+    padding : 1%;
     border-radius: 2%;
+    margin-left: 25%;
   }
   
   .result-element {
@@ -72,3 +73,22 @@ body {
     display: inline-block;
   }
   
+  input:invalid {
+    background-color: #ffdddd;
+  }
+
+  
+  input:valid {
+    background-color: #ddffdd;
+  }
+  
+
+    
+  input:required {
+    border-color: #800000;
+    border-width: 3px;
+  }
+  
+  input:required:valid {
+    border-color: #008000;
+  }

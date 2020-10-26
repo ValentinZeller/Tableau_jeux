@@ -60,6 +60,7 @@
         anime = document.getElementById("anime"); //Block déplaçable
         anime2 = document.getElementById("anime2"); //Block déplaçable
         container = document.getElementById("container"); //Zone où se trouve les blocks
+
         let keysPressed = []; //Gestion des inputs
         const speed = 1;
         const size = 50;
@@ -74,7 +75,7 @@
             //event.preventDefault();
             keysPressed[event.code] = true;
             if (inter) {
-                console.log("Pas créé");
+                
             } else {
                 inter = setInterval(manage,1);
             }
@@ -123,26 +124,69 @@
             //BlockCol : block qui peut être en collision
             //top : déplacement haut-bas
             //left : déplacement gauche-droite
+            side = "none";
             result = true;
             if ((blockPos.x + left < blockCol.x + blockCol.w )&&(blockPos.x + blockPos.w + left > blockCol.x)&&(blockPos.y + top < blockCol.y + blockCol.h)&&(blockPos.y + blockCol.h + top > blockCol.y)) {
                 result = false;
+                /* Trouve le coté en collision pour le rebond
+                if (blockPos.x + left > blockCol.x + blockCol.w) {
+                    side = "left";
+                }
+                else if (blockPos.x + blockPos.w + left > blockCol.x) {
+                    side = "right";
+                }
+                else if (blockPos.y + top < blockCol.y + blockCol.h) {
+                    side = "top";
+                }
+                else if (blockPos.y + blockCol.h + top > blockCol.y) {
+                    side = "bottom";
+                }
+                */
             }
-            return result;
+            return [result,side]; 
+            //result = booleen pour savoir si collision ou non
+            //side = string pour savoir le cote en collision
         }
 
         function moveTop(top,block,blockPos,blockCol) {
             //Mouvement haut-bas
-            if (!(blockPos.y + blockPos.h + top > zone.h || blockPos.y + top < 0)&&collision(blockPos,blockCol,top,0)) {
+            col = collision(blockPos,blockCol,top,0);
+            if (!(blockPos.y + blockPos.h + top > zone.h || blockPos.y + top < 0)&&col[0]) {
                 blockPos.y += top;
                 //block.style.top = blockPos.y+"px";
             }
+            /* Rebond 
+            else if (!col[0]) {
+                switch (col[1]) {
+                    case 'top':
+                        blockPos.y += top;
+                        break;
+                    case 'bottom' :
+                        blockPos.y -= top;
+                        break;
+                }
+            }
+            */
         }
         function moveLeft(left,block,blockPos,blockCol) {
             //Mouvement gauche-droite
-            if (!(blockPos.x + blockPos.w + left > zone.w || blockPos.x + left < 0)&&collision(blockPos,blockCol,0,left)) {
+            col = collision(blockPos,blockCol,0,left);
+            if (!(blockPos.x + blockPos.w + left > zone.w || blockPos.x + left < 0)&&col[0]) {
                 blockPos.x += left;
                 //block.style.left = blockPos.x+"px";
             }
+            /* Rebond
+            else if (!col[0]) {
+                switch (col[1]) {
+                    case 'left':
+                        blockPos.x += left;
+                        break;
+                    case 'right' :
+                        blockPos.x -= left;
+                        break;
+                }
+            }
+            */
         }
         document.addEventListener("keydown", keyDownHandler, false);
         document.addEventListener("keyup", keyUpHandler, false);
