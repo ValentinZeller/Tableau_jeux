@@ -128,7 +128,7 @@
             result = true;
             if ((blockPos.x + left < blockCol.x + blockCol.w )&&(blockPos.x + blockPos.w + left > blockCol.x)&&(blockPos.y + top < blockCol.y + blockCol.h)&&(blockPos.y + blockCol.h + top > blockCol.y)) {
                 result = false;
-                /* Trouve le coté en collision pour le rebond
+                /* Trouve le coté en collision pour le rebond */
                 if (blockPos.x + left > blockCol.x + blockCol.w) {
                     side = "left";
                 }
@@ -141,7 +141,7 @@
                 else if (blockPos.y + blockCol.h + top > blockCol.y) {
                     side = "bottom";
                 }
-                */
+                
             }
             return [result,side]; 
             //result = booleen pour savoir si collision ou non
