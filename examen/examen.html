@@ -34,16 +34,16 @@
 			}
 
 			function changeZone(event) {
-				switch (this.name) {
+				switch (event.target.name) {
 					case 'backgroundColor':
-						zone_test.style.backgroundColor = "rgb("+this.value+","+this.value+","+this.value+")";
+						zone_test.style.backgroundColor = "rgb("+event.target.value+","+event.target.value+","+event.target.value+")";
 						break;
 	
 					case 'rotation':
-						zone_test.style.transform = "rotate("+this.value+"deg)";
+						zone_test.style.transform = "rotate("+event.target.value+"deg)";
 						break;
 					default:
-						zone_test.style.setProperty(this.name,this.value+"px");
+						zone_test.style.setProperty(event.target.name,event.target.value+"px");
 						break;
 				}
 			}
@@ -55,9 +55,9 @@
 				input.setAttribute('type',element.type);
 				input.setAttribute('required','true');
 				if (element.type == 'range') {
-				input.setAttribute('min',element.min);
-				input.setAttribute('max',element.max);
-				input.setAttribute('class','form-control-Range')
+					input.setAttribute('min',element.min);
+					input.setAttribute('max',element.max);
+					input.setAttribute('class','form-control-Range')
 				} 
 				return input;
 			}
@@ -83,12 +83,14 @@
 					
 					createLabel(element.name,div);
 					input = createInput(element);
-					input.addEventListener('input',changeZone,false);
+					//input.addEventListener('input',changeZone,false);
 					div.appendChild(input);
 					formGroup.appendChild(div);
 					document.getElementById('dom').appendChild(form);
 				});
 			}
+
+			document.addEventListener('input',changeZone);
 			
 			generateForm(formData);
 
